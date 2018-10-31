@@ -31,16 +31,16 @@ RUN composer install --no-ansi --no-dev --no-interaction --no-progress --no-scri
 FROM roquie/docker-swoole-webapp
 COPY --from=0 /app /app
 
-CMD ["php", "/app/index.php"]
+CMD ["php", "index.php"]
 ```
 
 Example 2:
 
 ```Dockerfile
 FROM roquie/docker-swoole-webapp
-COPY --from=0 /app /app
+COPY . /app
 
-CMD ["php", "/app/index.php"]
+CMD ["php", "index.php"]
 ```
 
 ## Tags
