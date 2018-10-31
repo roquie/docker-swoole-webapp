@@ -14,7 +14,7 @@ RUN apk add --update autoconf g++ libtool make icu-dev postgresql-dev postgresql
     && docker-php-ext-enable swoole \
     && echo 'opcache.enable_cli=1' >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini \
     && echo 'swoole.fast_serialize=On' >> /usr/local/etc/php/conf.d/docker-php-ext-swoole-serialize.ini \
-    &&  apk del \
+    && apk del \
     		autoconf \
     		bash \
     		binutils \
@@ -52,8 +52,6 @@ RUN apk add --update autoconf g++ libtool make icu-dev postgresql-dev postgresql
     		sqlite-libs \
     		zlib-dev \
     	&& rm -rf /tmp/* && rm -rf /var/cache/apk/*
-
-COPY --from=0 /app /app
 
 EXPOSE 8080
 WORKDIR /app
