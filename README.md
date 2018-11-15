@@ -1,6 +1,8 @@
 Docker Swoole WebApp Image
 --------------------------
 
+[![CircleCI](https://circleci.com/gh/roquie/docker-swoole-webapp.svg?style=svg)](https://circleci.com/gh/roquie/docker-swoole-webapp)
+
 Simple docker image to build your applications based on Swoole PHP extension.
 
 Versions:
@@ -11,6 +13,8 @@ Versions:
 Notice:
 * Opcache enabled for cli
 * Swoole fast serialize is enabled too.
+
+**Every week at 00:00 on Sunday (UTC) Docker images automatically rebuilds.**
 
 ## Run
 

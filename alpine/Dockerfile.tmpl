@@ -1,4 +1,4 @@
-FROM php:7.3-rc-cli-alpine3.8
+FROM {{ base_image }}
 
 RUN apk add --update autoconf g++ libtool make icu-dev postgresql-dev postgresql-libs libsasl db \
 	&& docker-php-ext-install mbstring \
@@ -6,8 +6,8 @@ RUN apk add --update autoconf g++ libtool make icu-dev postgresql-dev postgresql
     && docker-php-ext-install intl \
     && docker-php-ext-install pdo_pgsql \
     && docker-php-ext-install sockets \
-    # --enable-debug-log=no --enable-sockets=yes --enable-openssl=yes, others "no" by default.
-    && printf 'no\nyes\nyes' | pecl install swoole \
+		# --enable-sockets=no --enable-openssl=yes --enable-http2=yes --enable-mysqlnd=no --enable-coroutine-postgresql=no --enable-debug-log=no
+		&& printf 'yes\nyes\nno\nyes\nno' | pecl install swoole \
 #    # yaml-dev
 #    && echo '' | pecl install yaml \
 #    && docker-php-ext-enable yaml \
@@ -55,3 +55,4 @@ RUN apk add --update autoconf g++ libtool make icu-dev postgresql-dev postgresql
 
 EXPOSE 8080
 WORKDIR /app
+
