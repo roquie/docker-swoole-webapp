@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: docker build -t $ORGNAME/$REPONAME:latest .
+      - run:
+          name: Push image to registry
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $ORGNAME/$REPONAME:latest
