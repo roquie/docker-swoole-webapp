@@ -49,7 +49,10 @@ CMD ["php", "index.php"]
 
 ## Tags
 
-* latest
+* latest (PHP 7.3)
+* 7.3-latest
+* 7.2-latest
+* 7.1-latest
 
 ## License
 

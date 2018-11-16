@@ -20,7 +20,7 @@ jobs:
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
           docker tag $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:php7.3-latest
-          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:php7.3-latest
+          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
 
     - run:
         name: Build template for PHP 7.2 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
