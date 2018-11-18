@@ -3,7 +3,7 @@
 use Swoole\Http\Response;
 use Swoole\Http\Server;
 
-$http = new Server('0.0.0.0', 8080, SWOOLE_PROCESS);
+$http = new Server('0.0.0.0', 8080, SWOOLE_BASE);
 
 $http->set([
     'worker_num' => 4,

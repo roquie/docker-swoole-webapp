@@ -9,7 +9,7 @@ Tuned for maximum performance.
 Versions:
 * PHP 7.3
 * Alpine 3.8
-* Swoole latest (4.5)
+* Swoole latest stable release from [pecl](https://pecl.php.net/package/swoole).
 
 Notice:
 * Opcache enabled for cli. It use very aggressive caching and settings. Only for production.
@@ -44,18 +44,68 @@ FROM roquie/docker-swoole-webapp
 COPY . /app
 ```
 
+Example 3:
+
+```Dockerfile
+FROM roquie/docker-swoole-webapp
+
+# Override default env values
+ENV PHP_MEMORY_LIMIT=512mb
+
+COPY . /app
+```
+
 Project files must be contains `index.php` to start app.
 
 ## Extensions
 
-* mbstring
-* opcache
-* intl
-* pdo_pgsql
-* pdo_mysql
-* sockets
-* gmp
-* swoole
+```bash
+[PHP Modules]
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+gmp
+hash
+iconv
+intl
+json
+libxml
+mbstring
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
+Phar
+posix
+readline
+Reflection
+session
+SimpleXML
+sockets
+sodium
+SPL
+sqlite3
+standard
+swoole
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zlib
+
+[Zend Modules]
+Zend OPcache
+
+```
 
 ## Env variables
 
