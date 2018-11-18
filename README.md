@@ -4,6 +4,7 @@ Docker Swoole WebApp Image
 [![CircleCI](https://circleci.com/gh/roquie/docker-swoole-webapp.svg?style=svg)](https://circleci.com/gh/roquie/docker-swoole-webapp)
 
 Simple docker image to build your applications based on Swoole PHP extension.
+Tuned for maximum performance.
 
 Versions:
 * PHP 7.3
@@ -11,7 +12,7 @@ Versions:
 * Swoole latest (4.5)
 
 Notice:
-* Opcache enabled for cli
+* Opcache enabled for cli. It use very aggressive caching and settings. Only for production.
 * Swoole fast serialize is enabled too.
 
 **Every week at 00:00 on Sunday (UTC) Docker images automatically rebuilds.**
@@ -34,8 +35,6 @@ RUN composer install --no-ansi --no-dev --no-interaction --no-progress --no-scri
 
 FROM roquie/docker-swoole-webapp
 COPY --from=0 /app /app
-
-CMD ["php", "index.php"]
 ```
 
 Example 2:
@@ -43,8 +42,47 @@ Example 2:
 ```Dockerfile
 FROM roquie/docker-swoole-webapp
 COPY . /app
+```
 
-CMD ["php", "index.php"]
+Project files must be contains `index.php` to start app.
+
+## Extensions
+
+* mbstring
+* opcache
+* intl
+* pdo_pgsql
+* pdo_mysql
+* sockets
+* gmp
+* swoole
+
+## Env variables
+
+```bash
+PHP_MEMORY_LIMIT=1024mb
+PHP_MAX_EXECUTION_TIME=120 # seconds
+PHP_MAX_INPUT_TIME=60 # seconds
+PHP_ERROR_REPORTING="E_ALL & ~E_DEPRECATED & ~E_STRICT"
+PHP_DISPLAY_ERRORS=Off
+PHP_POST_MAX_SIZE=512M
+PHP_UPLOAD_MAX_FILESIZE=512M
+PHP_MAX_FILE_UPLOADS=20
+PHP_DEFAULT_MIMETYPE=application/json
+PHP_SESSION_STRICT_MODE=1
+PHP_SESSION_COOKIE_SECURE=1
+PHP_EXPOSE_PHP=Off
+PHP_DATE_TIMEZONE=UTC
+
+PHP_OPCACHE_ENABLE=1
+PHP_OPCACHE_ENABLE_CLI=1
+PHP_OPCACHE_MEMORY_CONSUMPTION=512
+PHP_OPCACHE_INTERNED_STRINGS_BUFFER=16
+PHP_OPCACHE_MAX_ACCELERATED_FILES_AUTO=true
+PHP_OPCACHE_MAX_ACCELERATED_FILES=50000 # if PHP_OPCACHE_MAX_ACCELERATED_FILES_AUTO is `true`, files count automatically.
+PHP_OPCACHE_REVALIDATE_FREQ=0
+PHP_OPCACHE_ENABLE_FILE_OVERRIDE=1
+PHP_OPCACHE_FILE_CACHE_ONLY=1
 ```
 
 ## Tags

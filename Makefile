@@ -1,6 +1,10 @@
 IMAGE = roquie/docker-swoole-webapp
 VERSION = latest
 
+# build dockerfile from template
+build:
+	docker run --rm -it -v $$(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php73.yaml --format=yaml > Dockerfile
+
 image:
 	docker build -t $(IMAGE):$(VERSION) .
 
