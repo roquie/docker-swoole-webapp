@@ -50,7 +50,7 @@ Example 3:
 FROM roquie/docker-swoole-webapp
 
 # Override default env values
-ENV PHP_MEMORY_LIMIT=512mb
+PHP_OPCACHE_ENABLE=0
 
 COPY . /app
 ```
@@ -110,7 +110,7 @@ Zend OPcache
 ## Env variables
 
 ```bash
-PHP_MEMORY_LIMIT=1024mb
+PHP_MEMORY_LIMIT=-1
 PHP_MAX_EXECUTION_TIME=120 # seconds
 PHP_MAX_INPUT_TIME=60 # seconds
 PHP_ERROR_REPORTING="E_ALL & ~E_DEPRECATED & ~E_STRICT"
