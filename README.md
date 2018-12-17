@@ -50,7 +50,7 @@ Example 3:
 FROM roquie/docker-swoole-webapp
 
 # Override default env values
-PHP_OPCACHE_ENABLE=0
+ENV PHP_OPCACHE_ENABLE=0
 
 COPY . /app
 ```
