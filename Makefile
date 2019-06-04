@@ -5,7 +5,7 @@ VERSION = latest
 build:
 	docker run --rm -it -v $$(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php73.yaml --format=yaml > Dockerfile
 
-image:
+image: build
 	docker build -t $(IMAGE):$(VERSION) .
 
 push:

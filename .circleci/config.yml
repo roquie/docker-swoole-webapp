@@ -5,50 +5,50 @@ jobs:
     machine:
       docker_layer_caching: true
     steps:
-    - checkout
-    - run:
-        name: Build template for PHP 7.3 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
-        command: |
-          docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php73.yaml --format=yaml > Dockerfile.corrupted
-          sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
-    - run:
-        name: Build PHP 7.3 application Docker image
-        command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest .
-    - run:
-        name: Push PHP 7.3 image to registry
-        command: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
-          docker tag $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
-          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
+      - checkout
+      - run:
+          name: Build template for PHP 7.3 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
+          command: |
+            docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php73.yaml --format=yaml > Dockerfile.corrupted
+            sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
+      - run:
+          name: Build PHP 7.3 application Docker image
+          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest .
+      - run:
+          name: Push PHP 7.3 image to registry
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
+            docker tag $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
+            docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
 
-    - run:
-        name: Build template for PHP 7.2 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
-        command: |
-          docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php72.yaml --format=yaml > Dockerfile.corrupted
-          sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
-    - run:
-        name: Build PHP 7.2 application Docker image
-        command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.2-latest .
-    - run:
-        name: Push PHP 7.2 image to registry
-        command: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.2-latest
+      - run:
+          name: Build template for PHP 7.2 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
+          command: |
+            docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php72.yaml --format=yaml > Dockerfile.corrupted
+            sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
+      - run:
+          name: Build PHP 7.2 application Docker image
+          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.2-latest .
+      - run:
+          name: Push PHP 7.2 image to registry
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.2-latest
 
-    - run:
-        name: Build template for PHP 7.1 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
-        command: |
-          docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php71.yaml --format=yaml > Dockerfile.corrupted
-          sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
-    - run:
-        name: Build PHP 7.1 application Docker image
-        command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.1-latest .
-    - run:
-        name: Push PHP 7.1 image to registry
-        command: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.1-latest
+      - run:
+          name: Build template for PHP 7.1 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
+          command: |
+            docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php71.yaml --format=yaml > Dockerfile.corrupted
+            sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
+      - run:
+          name: Build PHP 7.1 application Docker image
+          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.1-latest .
+      - run:
+          name: Push PHP 7.1 image to registry
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.1-latest
 
 workflows:
   version: 2
