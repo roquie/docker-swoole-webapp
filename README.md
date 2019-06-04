@@ -8,7 +8,7 @@ Tuned for maximum performance.
 
 Versions:
 * PHP 7.3
-* Alpine 3.8
+* Alpine 3.9
 * Swoole latest stable release from [pecl](https://pecl.php.net/package/swoole).
 
 Notice:
