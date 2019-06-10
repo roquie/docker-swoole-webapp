@@ -181,7 +181,7 @@
 
 ; Enable the PHP scripting language engine under Apache.
 ; http://php.net/engine
-engine = On
+engine = Off
 
 ; This directive determines whether or not PHP will recognize code between
 ; <? and ?> tags as PHP source which should be processed as such. It is
@@ -194,7 +194,7 @@ engine = On
 ; Development Value: Off
 ; Production Value: Off
 ; http://php.net/short-open-tag
-short_open_tag = Off
+short_open_tag = $PHP_SHORT_OPEN_TAG
 
 ; The number of significant digits displayed in floating point numbers.
 ; http://php.net/precision

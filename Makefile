@@ -11,4 +11,7 @@ image: build
 push:
 	docker push $(IMAGE):$(VERSION)
 
+run:
+	docker run --rm -it -p 8080:8080 $(IMAGE):$(VERSION)
+
 all: image push
