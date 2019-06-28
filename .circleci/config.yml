@@ -15,7 +15,7 @@ jobs:
           name: PHP 7.4 application Docker image
           command: |
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-            make VERSION=7.4-latest test push
+            make VERSION=7.4-latest alpine fix_circleci_bug image test push
 
       # PHP 7.3 LATEST STABLE
       - run:
