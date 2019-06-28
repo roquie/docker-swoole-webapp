@@ -1,11 +1,31 @@
 version: 2
 
+
+# Parallel build? NO... )
+
 jobs:
   build:
     machine:
       docker_layer_caching: true
     steps:
       - checkout
+
+      # PHP 7.4
+      - run:
+          name: Build template for PHP 7.4 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
+          command: |
+            docker run --rm -it -v $(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php74.yaml --format=yaml > Dockerfile.corrupted
+            sed 's/\^\@\^\@//' Dockerfile.corrupted > Dockerfile
+      - run:
+          name: Build PHP 7.4 application Docker image
+          command: docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.4-latest .
+      - run:
+          name: Push PHP 7.3 image to registry
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+            docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
+
+      # PHP 7.3 LATEST STABLE
       - run:
           name: Build template for PHP 7.3 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
           command: |
@@ -22,6 +42,7 @@ jobs:
             docker tag $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
             docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.3-latest
 
+      # PHP 7.2
       - run:
           name: Build template for PHP 7.2 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
           command: |
@@ -36,6 +57,7 @@ jobs:
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
             docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:7.2-latest
 
+      # PHP 7.1
       - run:
           name: Build template for PHP 7.1 # CircleCI corrupt the Dockerfile adding "^@^@" before head of file.
           command: |
@@ -54,11 +76,11 @@ workflows:
   version: 2
   build:
     triggers:
-    - schedule:
-        cron: "0 0 * * 0" # Every week
-        filters:
-          branches:
-            only:
-            - master
+      - schedule:
+          cron: "0 0 * * 0" # Every week
+          filters:
+            branches:
+              only:
+                - master
     jobs:
-    - build
+      - build

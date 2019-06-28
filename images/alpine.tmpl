@@ -1,0 +1,33 @@
+FROM {{ base_image }} AS build
+
+RUN apk add --update --no-cache autoconf g++ libtool pcre make icu-dev postgresql-dev postgresql-libs libsasl db gmp-dev oniguruma-dev yaml-dev git \
+	&& docker-php-ext-configure opcache --enable-opcache --enable-opcache-file \
+	&& docker-php-ext-install -j $(nproc) opcache intl pdo_pgsql pdo_mysql sockets gmp
+
+{% include 'async-ext.dockerfile' %}
+{% include 'swoole-ext.dockerfile' %}
+{% include 'swoole-async-ext.dockerfile' %}
+{% include 'brotli-ext.dockerfile' %}
+{% include 'eio-ext.dockerfile' %}
+{% include 'yaml-ext.dockerfile' %}
+
+FROM {{ base_image }}
+
+{% include 'env.dockerfile' %}
+
+RUN apk add --update --no-cache pcre ca-certificates icu postgresql-libs sqlite-libs gmp libstdc++ yaml
+
+COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+COPY --from=build /usr/local/include/php/ /usr/local/include/php/
+
+COPY entry.sh /
+COPY --from=roquie/smalte:latest-alpine /app/smalte /usr/local/bin/smalte
+COPY php.ini.tmpl /usr/local/etc/php/
+COPY index.php /app/index.php
+
+EXPOSE 8080
+WORKDIR /app
+
+
+ENTRYPOINT ["/entry.sh"]

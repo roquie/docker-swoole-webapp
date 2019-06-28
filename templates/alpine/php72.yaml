@@ -1,0 +1,5 @@
+base_image: php:7.2-cli-alpine
+
+swoole:
+  main_version: v4.3.5
+  async_version: v4.3.3

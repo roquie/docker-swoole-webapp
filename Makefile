@@ -1,12 +1,13 @@
 IMAGE = roquie/docker-swoole-webapp
 VERSION = latest
+PHP = 74
 
 # build dockerfile from template
-build:
-	docker run --rm -it -v $$(pwd)/alpine:/app roquie/docker-jinja2-cli jinja2 Dockerfile.tmpl php73.yaml --format=yaml > Dockerfile
+alpine:
+	docker run --rm -it -v $$(pwd):/app roquie/docker-jinja2-cli jinja2 images/alpine.tmpl "templates/alpine/php${PHP}.yaml" --format=yaml > "Dockerfile.alpine-${PHP}"
 
-image: build
-	docker build -t $(IMAGE):$(VERSION) .
+image:
+	docker build -f "Dockerfile.alpine-${PHP}" -t $(IMAGE):$(VERSION) .
 
 push:
 	docker push $(IMAGE):$(VERSION)
@@ -14,4 +15,8 @@ push:
 run:
 	docker run --rm -it -p 8080:8080 $(IMAGE):$(VERSION)
 
-all: image push
+test: alpine image
+	docker run --rm -it -v $$(pwd):/app $(IMAGE):$(VERSION) php tests.php
+
+
+all: alpine image push
