@@ -7,7 +7,7 @@ Simple docker image to build your applications based on Swoole PHP extension.
 Tuned for maximum performance.
 
 Versions:
-* PHP 7.4, 7.3, 7.2, 7.1
+* PHP 7.4, 7.3, 7.2 (out of date), 7.1 (out of date)
 * Latest Alpine
 * Swoole builds from source with versions: [templates/alpine/php74.yaml](templates/alpine/php74.yaml).
 
@@ -157,8 +157,8 @@ PHP_OPCACHE_FILE_CACHE_ONLY=1
 * latest (PHP 7.3)
 * 7.4-latest
 * 7.3-latest
-* 7.2-latest
-* 7.1-latest
+* 7.2-latest (only `swoole` available, out of date)
+* 7.1-latest (only `swoole` available, out of date)
 
 ## License
 

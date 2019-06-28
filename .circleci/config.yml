@@ -27,18 +27,18 @@ jobs:
             docker push $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
 
       # PHP 7.2
-      - run:
-          name: PHP 7.2 application Docker image
-          command: |
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-            make VERSION=7.2-latest PHP=72 alpine fix_circleci_bug image test push
-
-      # PHP 7.1
-      - run:
-          name: PHP 7.1 application Docker image
-          command: |
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-            make VERSION=7.1-latest PHP=71 alpine fix_circleci_bug image test push
+#      - run:
+#          name: PHP 7.2 application Docker image
+#          command: |
+#            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+#            make VERSION=7.2-latest PHP=72 alpine fix_circleci_bug image test push
+#
+#      # PHP 7.1
+#      - run:
+#          name: PHP 7.1 application Docker image
+#          command: |
+#            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+#            make VERSION=7.1-latest PHP=71 alpine fix_circleci_bug image test push
 
 workflows:
   version: 2
