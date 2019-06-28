@@ -9,7 +9,7 @@ Tuned for maximum performance.
 Versions:
 * PHP 7.4, 7.3, 7.2, 7.1
 * Latest Alpine
-* Swoole builds from source with versions: [template/alpine/php74.yaml](template/alpine/php74.yaml).
+* Swoole builds from source with versions: [templates/alpine/php74.yaml](templates/alpine/php74.yaml).
 
 Notice:
 * Opcache enabled for cli. It use very aggressive caching and settings. Only for production.
